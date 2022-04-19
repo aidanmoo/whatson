@@ -25,6 +25,7 @@ import {
   CardActions,
 } from "@mui/material";
 import ClearSearchBox from "./components/MovieFilterComponents/ClearSearchBox";
+import MovieSearchResults from "./pages/MovieSearchResults";
 
 const drawerWidth = 240;
 
@@ -34,7 +35,7 @@ function App() {
   let [selectedCertification, setSelectedCertification] = useState("");
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <BrowserRouter>
         <AppBar
@@ -75,6 +76,9 @@ function App() {
           </Box>
           <Toolbar />
         </Drawer>
+        <Container maxWidth="md" >
+        <Box> 
+
         <Switch>
           <Route exact path="/">
             <Home
@@ -90,10 +94,15 @@ function App() {
           <Route path="/movie/:id">
             <Movie />
           </Route>
+          <Route path="/search">
+            <MovieSearchResults />
+          </Route>
           <Route path="*">
             <Redirect to="/" />
           </Route>
         </Switch>
+        </Box>
+        </Container>
         <AppBar
           position="fixed"
           color="secondary"

@@ -1,15 +1,19 @@
 import React from "react";
 import { useFetch } from "../hooks/useFetch";
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import PaginationView from "../components/PaginationView";
 import { useState, useEffect } from "react";
 import GridLayout from "../components/GridLayout";
 
 export default function MovieSearchResults(params) {
-  const searchTerm = params.searchedFor;
+  // const searchTerm = params.searchedFor;
+  const queryString = useLocation().search
+  const queryParams = new URLSearchParams(queryString);
+  const query = queryParams.get('q');
+  
   const [currentPage, setCurrentPage] = useState(1);
   let [currentPageQuery, setCurrentPageQuery] = useState("") 
-  const path = "/3/search/movie?query=" + searchTerm + "&include_adult=false&"+currentPageQuery;
+  const path = "/3/search/movie?query=" + query + "&include_adult=false&"+currentPageQuery;
   const { data: movieList, isPending, error } = useFetch(path);
   
 
