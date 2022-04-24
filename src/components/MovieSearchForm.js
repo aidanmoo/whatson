@@ -9,44 +9,44 @@ import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import { TextField } from "@mui/material";
 import { InputAdornment } from "@mui/material";
-
-
-
+import { useLogout } from "../hooks/useLogout";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { Button, Paper } from "@mui/material";
 
 export default function MovieSearchForm(params) {
   let [search, setSearch] = useState("");
-  let [path, setPath] = useState("");
   const history = useHistory();
+  const { logout } = useLogout();
+  const { user } = useAuthContext();
 
-  function handleChange(event) {
-    setSearch(event.target.value);
-  }
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === "dark" ? "#" : "#fff",
+    padding: theme.spacing(1),
+    textAlign: "center",
+  }));
 
-  function handleSubmit(e) {
+  function handleSearchFieldOnChange(e) {
     e.preventDefault();
-    params.setSearchedFor(search);
+    console.log(e);
+    // params.setSearchedFor(e.target.value)
+    if (e.target.value) {
+      history.push(`/search?q=${e.target.value}`);
+    } else history.push(`/`);
   }
-
-  function clearSubmit(e) {
-    e.preventDefault();
-    params.setSearchedFor(null);
-  }
-
-function handleSearchFieldOnChange(e) {
-  e.preventDefault();
-  params.setSearchedFor(e.target.value)
-}
 
   return (
     <Stack
       direction="row"
       divider={<Divider orientation="vertical" flexItem />}
-      spacing={1}
+      spacing={3}
       alignItems="center"
     >
-      <item>
-       <Link to={`/`}> <img src="/images/logo.png" /></Link>
-      </item>
+      <Item>
+        <Link to={`/`}>
+          {" "}
+          <img src="/images/logo.png" />
+        </Link>
+      </Item>
       {/* <item>
         <form onSubmit={handleSubmit}>
           <input
@@ -67,12 +67,12 @@ function handleSearchFieldOnChange(e) {
           </form>
         </div>
       </item> */}
-      
-      <item>
+
+      <Item>
         <TextField
           placeholder="Search for Movies"
           type="search"
-          variant="outlined"          
+          variant="outlined"
           size="small"
           onChange={handleSearchFieldOnChange}
           InputProps={{
@@ -83,7 +83,37 @@ function handleSearchFieldOnChange(e) {
             ),
           }}
         />
-      </item>
+      </Item>
+      {!user && (
+        <Item>
+          <Button href="/login">LOGIN</Button>
+        </Item>
+      )}
+      {!user && (
+        <Item>
+          <Button href="/signup">SIGNUP</Button>
+        </Item>
+      )}
+      {user && (
+        <Item>
+          <h3>Hello, {user.displayName}</h3>
+        </Item>
+      )}
+      {user && (
+        <Item>
+          <Button href="/">BROWSE</Button>
+        </Item>
+      )}
+      {user && (
+        <Item>
+          <Button href="/profile">MY LIST</Button>
+        </Item>
+      )}
+      {user && (
+        <Item>
+          <Button color='secondary' variant='outlined' onClick={logout}>LOGOUT</Button>{" "}
+        </Item>
+      )}
     </Stack>
   );
 }

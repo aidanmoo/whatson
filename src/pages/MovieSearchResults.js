@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import PaginationView from "../components/PaginationView";
 import { useState, useEffect } from "react";
 import GridLayout from "../components/GridLayout";
+import { Toolbar, Container } from "@mui/material";
 
 export default function MovieSearchResults(params) {
   // const searchTerm = params.searchedFor;
@@ -26,12 +27,15 @@ export default function MovieSearchResults(params) {
   });
 
   return (
-    <>
+    <Container maxWidth='lg' >
+              <Toolbar />
+        <Toolbar />
+        <h3>You have searched for: {query}</h3>
     
       <GridLayout isPending={isPending} error={error} movieList={movieList}/>
       
       <PaginationView currentPage={currentPage} setCurrentPage={setCurrentPage} isPending={isPending} error={error} movieList={movieList} />
-      </>
+      </Container>
 //     <div>
 //       {isPending && <div>Loading ...</div>}
 //       {error && <div>{error}</div>}

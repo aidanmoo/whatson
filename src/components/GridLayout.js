@@ -11,6 +11,8 @@ import {
   Typography,
   CardActions,
 } from "@mui/material";
+import AddtoWatchList from "./AddtoWatchList";
+import RemovefromWatchList from "./RemovefromWatchList"
 
 export default function GridLayout(params) {
   return (
@@ -39,7 +41,19 @@ export default function GridLayout(params) {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Link to={`/movie/${movie.id}`}><Button variant="contained" color='secondary' fullWidth='true'>See Details</Button></Link>
+                <Link to={`/movie/${movie.id}`}>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    fullWidth="true"
+                  >
+                    See Details
+                  </Button>
+                </Link>
+              </CardActions>
+              <CardActions>
+                <AddtoWatchList movieID={movie.id} />
+                <RemovefromWatchList movieID={movie.id} />
               </CardActions>
             </Card>
           </Grid>

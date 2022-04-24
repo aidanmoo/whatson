@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { useParams, useHistory,  } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 import WhereToView from "../components/WhereToView";
-import { Toolbar, Stack, Box, Container } from "@mui/material";
+import { Button, Toolbar, Stack, Box, Container } from "@mui/material";
 import SimilarMovies from "../components/SimilarMovies";
 import WatchPreview from "../components/WatchPreview";
+import AddtoWatchList from "../components/AddtoWatchList";
+import RemovefromWatchList from "../components/RemovefromWatchList"
 
 export default function Movie() {
   const { id } = useParams();
@@ -35,8 +37,13 @@ export default function Movie() {
              {movie.original_title} on IMDB
           </a></p>
           <p>
-          <button onClick={() => history.goBack()}>Go Back</button>
+          <Button color='warning' variant="outlined" onClick={() => history.goBack()}>Go Back</Button>
           </p>
+          </item>
+          <item>
+            <p> On Your List?</p>
+          <AddtoWatchList movieID={movie.id} />
+          <RemovefromWatchList movieID={movie.id} />
           </item>
           </Stack>
       )}

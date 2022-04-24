@@ -13,7 +13,7 @@ export default function PopularMovies(params) {
   let certification = params.selectedCertification;
   let [certificationQuery, setCertificationQuery] = useState("");
   const original_language = "en";
-  const path = `/3/discover/movie?language=en-AU&sort_by=popularity.desc&include_adult=false&include_video=false&with_watch_monetization_types=flatrate&certification.lte=3&${genreQuery}${certificationQuery}${currentPageQuery}`;
+  const path = `/3/discover/movie?language=en-AU&watch_region=AU&sort_by=popularity.desc&include_adult=false&include_video=false&with_watch_monetization_types=flatrate&certification.lte=3&${genreQuery}${certificationQuery}${currentPageQuery}`;
   const { data: movieList, isPending, error } = useFetch(path);
 
   useEffect(() => {

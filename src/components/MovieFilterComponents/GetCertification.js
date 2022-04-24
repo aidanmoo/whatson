@@ -1,6 +1,7 @@
 import React from "react";
 import { useFetch } from "../../hooks/useFetch";
 import { useState } from "react";
+import { useLocation, useHistory } from "react-router-dom";
 import {
   Button,
   ButtonGroup,
@@ -12,8 +13,15 @@ export default function GetCertification(params) {
   const path = "/3/certification/movie/list?";
   const { data: certificationList, isPending, error } = useFetch(path);
 
+  let location = useLocation();
+
   // handle button toggle
   const handleButtonClick = (e, newCertification) => {
+    // if (location != "/") {
+    //   console.log("This page needs redirection");
+    //   let path = `newPath`;
+    //   history.push(path);
+    // }
     params.setSelectedCertification(newCertification);
   };
 
