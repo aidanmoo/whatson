@@ -6,7 +6,7 @@ export const useFetch = (path) => {
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
   const baseURL = "https://api.themoviedb.org";
-  const apiKey = env.MOVIE_API;
+  const apiKey = "api_key=369a688db579dc1bdc31bc1932885261";
   const url = baseURL + path + apiKey;
   console.log("env")
   console.log(env)
